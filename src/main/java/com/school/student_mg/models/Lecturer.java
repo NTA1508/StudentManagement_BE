@@ -9,12 +9,13 @@ import java.util.UUID;
 @Entity
 public class Lecturer {
 
-    public Lecturer(String lId, String email, String password, String firstName, String lastName, Date dob, String phoneNumber, String address, String status, Set<Role> roles) {
+    public Lecturer(String lId, String email, String password, String firstName, String lastName, Gender gender, Date dob, String phoneNumber, String address, String status, Set<Role> roles) {
         this.lId = lId;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.gender = gender;
         this.dob = dob;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -38,6 +39,9 @@ public class Lecturer {
     private String password;
     private String firstName;
     private String lastName;
+    @Column(name = "gender")
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
     private Date dob;
     @Column(name = "phoneNumber", length = 15)
     private String phoneNumber;
@@ -90,6 +94,14 @@ public class Lecturer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public Date getDob() {
