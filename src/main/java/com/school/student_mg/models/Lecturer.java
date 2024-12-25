@@ -1,5 +1,6 @@
 package com.school.student_mg.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -39,16 +40,19 @@ public class Lecturer {
     private String password;
     private String firstName;
     private String lastName;
+
     @Column(name = "gender")
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
+
     private Date dob;
+
     @Column(name = "phoneNumber", length = 15)
     private String phoneNumber;
     private String address;
     private String status;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "lecturer_role",
             joinColumns = @JoinColumn(name = "lecturer_id"),

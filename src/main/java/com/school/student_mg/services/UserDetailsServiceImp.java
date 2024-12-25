@@ -31,7 +31,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
         Lecturer lecturer = lectureRepository.findByEmail(email)
                 .orElseThrow(()->new NotFoundException(false, "Lecturer Not Found"));
 
-        List<Role> roles = roleRepository.findRolesByLecturerEmail(email);
+        List<Role> roles = roleRepository.findByLecturers_Email(email);
         if(roles.isEmpty()){
             System.out.println("No roles found");
         }

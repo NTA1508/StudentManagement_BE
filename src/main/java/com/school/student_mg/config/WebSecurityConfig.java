@@ -50,7 +50,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth-> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
                         .requestMatchers("/", "/api/login").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

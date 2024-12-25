@@ -1,5 +1,6 @@
 package com.school.student_mg.services;
 
+import com.school.student_mg.models.AuthenticationResponse;
 import com.school.student_mg.models.Lecturer;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface LecturerService {
-    public Lecturer addLecturer(Lecturer lecturer);
+    public AuthenticationResponse addLecturer(Lecturer lecturer);
     public Lecturer getLecturerById(String id);
     public Lecturer updateLecturer(Lecturer lecturer, String id);
     public List<Lecturer> getAllLecturer();
