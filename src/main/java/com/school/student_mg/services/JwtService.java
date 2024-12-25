@@ -16,15 +16,10 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    @Value("${jwt.secret}")
-    private final String SECRET_KEY;
-
-    public JwtService(String SECRET_KEY) {
-        this.SECRET_KEY = SECRET_KEY;
-    }
 
     // Create Sign Key
     public SecretKey getSignKey(){
+        String SECRET_KEY = "084e86e186aa512cfef70512fee162ac2a8da1a93dbc236fdccd4970f88ee197";
         byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
