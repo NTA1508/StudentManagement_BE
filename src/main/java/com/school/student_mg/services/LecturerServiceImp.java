@@ -1,5 +1,6 @@
 package com.school.student_mg.services;
 
+import com.school.student_mg.dto.LecturerDto;
 import com.school.student_mg.exception.NotFoundException;
 import com.school.student_mg.models.AuthenticationResponse;
 import com.school.student_mg.models.Lecturer;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class LecturerServiceImp implements LecturerService{
@@ -65,22 +67,47 @@ public class LecturerServiceImp implements LecturerService{
     }
 
     @Override
-    public Lecturer getLecturerById(String id) {
-        return lectureRepository.findById(id).orElseThrow(()->new NotFoundException(false, "Lecturer not found"));
+    public LecturerDto getLecturerById(String id) {
+        Lecturer lecturer = lectureRepository.findById(id).orElseThrow(()->new NotFoundException(false, "Lecturer not found"));
+        return new LecturerDto(lecturer);
     }
 
     @Override
-    public Lecturer updateLecturer(Lecturer lecturer, String id) {
-        return null;
+    public Lecturer updateLecturer(Lecturer request, String id) {
+        Lecturer lecturer = lectureRepository.findById(id).orElseThrow(()-> new NotFoundException(false, "Lecturer Not Found"));
+
+        lecturer.setEmail(request.getEmail());
+        Optional<Lecturer> existingEmail = lectureRepository.findByEmail(lecturer.getEmail());
+
+        if (!request.getEmail().equals(lecturer.getEmail())){
+            if(existingEmail.isPresent()){
+                throw  new RuntimeException("Email is already in use");
+            }
+        }
+
+        lecturer.setFirstName(request.getFirstName());
+        lecturer.setLastName(request.getLastName());
+        lecturer.setGender(request.getGender());
+        lecturer.setDob(request.getDob());
+        lecturer.setPhoneNumber(request.getPhoneNumber());
+        lecturer.setAddress(request.getAddress());
+        lecturer.setStatus(request.getStatus());
+        lecturer.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        return lectureRepository.save(lecturer);
     }
 
     @Override
-    public List<Lecturer> getAllLecturer() {
-        return List.of();
+    public List<LecturerDto> getAllLecturer() {
+        return lectureRepository.findAll()
+                .stream()
+                .map(LecturerDto::new)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteLecturer(String id) {
-
+        Lecturer lecturer = lectureRepository.findById(id).orElseThrow(()-> new NotFoundException(false, "Lecturer not found"));
+        lectureRepository.delete(lecturer);
     }
 }

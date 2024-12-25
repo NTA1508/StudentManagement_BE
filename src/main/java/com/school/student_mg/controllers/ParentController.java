@@ -56,7 +56,7 @@ public class ParentController {
         return new ResponseEntity<List<Parent>>(parentService.getAllParents(), HttpStatus.OK);
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateParent(@RequestBody Parent parent,@PathVariable String id){
         return new ResponseEntity<Parent>(parentService.updateParent(parent, id), HttpStatus.OK);
     }

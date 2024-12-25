@@ -23,7 +23,7 @@ public class Role {
 
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Lecturer> lecturers;
 
