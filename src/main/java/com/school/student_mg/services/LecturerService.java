@@ -11,7 +11,7 @@ import java.util.List;
 public interface LecturerService {
     public AuthenticationResponse addLecturer(Lecturer lecturer);
     public LecturerDto getLecturerById(String id);
-    public Lecturer updateLecturer(Lecturer lecturer, String id);
+    public void updateLecturer(Lecturer lecturer, String id);
     public List<LecturerDto> getAllLecturer();
     public void deleteLecturer(String id);
 }

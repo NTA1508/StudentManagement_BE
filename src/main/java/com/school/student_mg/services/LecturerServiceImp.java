@@ -73,7 +73,7 @@ public class LecturerServiceImp implements LecturerService{
     }
 
     @Override
-    public Lecturer updateLecturer(Lecturer request, String id) {
+    public void updateLecturer(Lecturer request, String id) {
         Lecturer lecturer = lectureRepository.findById(id).orElseThrow(()-> new NotFoundException(false, "Lecturer Not Found"));
 
         lecturer.setEmail(request.getEmail());
@@ -94,7 +94,7 @@ public class LecturerServiceImp implements LecturerService{
         lecturer.setStatus(request.getStatus());
         lecturer.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        return lectureRepository.save(lecturer);
+        lectureRepository.save(lecturer);
     }
 
     @Override

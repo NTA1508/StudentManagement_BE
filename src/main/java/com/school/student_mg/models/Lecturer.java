@@ -60,6 +60,9 @@ public class Lecturer {
     )
     private Set<Role> roles;
 
+    @OneToOne(mappedBy = "dean", cascade = CascadeType.ALL)
+    private Faculty facultyInCharge;
+
     public String getlId() {
         return lId;
     }
